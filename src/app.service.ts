@@ -36,7 +36,14 @@ export class AppService {
 
       return data;
     } catch (err) {
-      Promise.reject(err);
+      if (err.response) {
+        const { data, status } = err.response;
+        err = {
+          code: status,
+          message: data,
+        }
+      }
+      return Promise.reject(err);
     }
   }
 }

@@ -24,7 +24,7 @@ export class AppController {
         query,
       });
 
-    } catch (err) {
+    } catch (err) { 
       checkControllerErrors(err);
     }
   }

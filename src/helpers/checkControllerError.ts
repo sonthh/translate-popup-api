@@ -4,7 +4,7 @@ import { ControllerError } from 'src/app.interface';
 export const checkControllerErrors = ({ code, message }: ControllerError): void => {
 
   if (code === 403) {
-    throw new ForbiddenException();
+    throw new ForbiddenException(message);
   }
 
   if (code === 404) {
