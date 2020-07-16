@@ -3,6 +3,8 @@ import axios from 'axios';
 import { FindWordService } from './app.interface';
 import { apiKeys } from './constants/apiKey';
 import configuration from './config/configuration';
+import * as cheerio from 'cheerio';
+import { getBase64Image } from './helpers/get';
 
 @Injectable()
 export class AppService {
@@ -43,6 +45,30 @@ export class AppService {
           message: data,
         }
       }
+      return Promise.reject(err);
+    }
+  }
+
+  async webCrawler(): Promise<any> {
+    const url = 'https://gaigoidanang.com/huong-mai-face-xinh-body-nuot-na-diem-10-cho-service-va-thai-do-phuc-vu/';
+    try {
+      const { data } = await axios.get(url);
+
+      const $ = cheerio.load(data);
+      $('.entry-content img').each(async (index, elem) => {
+        const src = elem.attribs['data-lazy-src'];
+
+        const xxx = await getBase64Image(src);
+        console.log(xxx);
+        console.log('=============');
+        
+        
+
+      });
+
+
+      return null;
+    } catch (err) {
       return Promise.reject(err);
     }
   }

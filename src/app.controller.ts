@@ -28,4 +28,15 @@ export class AppController {
       checkControllerErrors(err);
     }
   }
+
+  @Get('/crawl')
+  @UsePipes(new ValidationPipe())
+  async crawler(): Promise<any> {
+    try {
+      return await this.appService.webCrawler();
+
+    } catch (err) { 
+      checkControllerErrors(err);
+    }
+  }
 }
